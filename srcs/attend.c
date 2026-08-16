@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/16 08:45:23 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/16 09:40:03 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,34 @@ static int	eaten_check(t_philo **philos)
 	* Checks if each philo is starved or satisfied.
 	* Sets dead = 1 if yes. To end the routine and stop program.
 */
-static void	dead_check(t_philo **philos, int ate)
+static int	dead_check(t_philo **philos)
+{
+	size_t	i;
+	size_t	num_of_philo;
+	t_philo	philo;
+	int		is_dead;
+
+	i = 0;
+	is_dead = 0;
+	num_of_philo = (*philos)[0].num_of_philo;
+	while (i < num_of_philo)
+	{
+		philo = (*philos)[i];
+		if ((current_time_in_ms() - philo.last_eaten > philo.ttd))
+		{
+			pthread_mutex_lock(&philo.is_dead_lock);
+			philo.dead = 1;
+			pthread_mutex_unlock(&philo.is_dead_lock);
+			print_log(&philo, "died");
+			is_dead = 1;
+			break;
+		}
+		i++;
+	}
+	return (is_dead);
+}
+
+static void	stop_routine(t_philo **philos)
 {
 	size_t	i;
 	size_t	num_of_philo;
@@ -58,17 +85,21 @@ static void	dead_check(t_philo **philos, int ate)
 	while (i < num_of_philo)
 	{
 		philo = (*philos)[i];
-		if ((current_time_in_ms() - philo.last_eaten > philo.ttd) || ate == 1)
-		{
-			pthread_mutex_lock(&philo.is_dead_lock);
-			philo.dead = 1;
-			pthread_mutex_unlock(&philo.is_dead_lock);
-		}
+		pthread_mutex_lock(&philo.is_dead_lock);
+		philo.dead = 1;
+		pthread_mutex_unlock(&philo.is_dead_lock);
 		i++;
 	}
 }
 
 void	attend(t_philo **philos)
 {
-	dead_check(philos, eaten_check(philos));
+	int	end;
+
+	while (!end)
+	{
+		if (dead_check(philos) || eaten_check(philos))
+			end = 1;
+	}
+	stop_routine(philos);
 }
