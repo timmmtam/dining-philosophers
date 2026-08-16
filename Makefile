@@ -12,7 +12,7 @@
 
 NAME = philo
 
-CFLAGS = -Wall -Wextra -Werror -pthread -IHeaders
+CFLAGS = -Wall -Wextra -Werror -pthread -Iheaders
 
 VPATH = srcs:srcs/utils
 
