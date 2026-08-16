@@ -6,7 +6,7 @@
 #    By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/18 15:47:05 by timtan            #+#    #+#              #
-#    Updated: 2026/04/18 17:17:59 by timtan           ###   ########.fr        #
+#    Updated: 2026/08/16 08:55:15 by timtan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ VPATH = srcs:srcs/utils
 
 OBJDIR = objs
 
-SRC_FILES = main.c	ft_atol.c
+SRC_FILES = main.c		attend.c	cleanup.c	init.c	routine.c	thread.c\
+			ft_atol.c	print_log.c	time.c
 
 OBJ_FILES = $(addprefix $(OBJDIR)/, $(SRC_FILES:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/07/18 13:05:31 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/16 08:40:53 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ typedef struct s_philo
 	int				eating;
 	int				last_eaten;
 	int				times_eaten;
-	pthread_mutex_t left_fork;
-	pthread_mutex_t right_fork;
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	is_dead_lock;
 	pthread_mutex_t	eaten_lock;
@@ -92,5 +92,8 @@ void		print_log(t_philo *philo, char *message);
 
 // routine.c
 void		philo_routine(t_philo *philo);
+
+//attend.c
+void		attend(t_philo **philos);
 
 #endif
