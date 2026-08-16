@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/07/02 19:03:55 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/16 08:49:26 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	init_philos(t_philo **philos, const t_data *data)
 			(*philos)[i].left_fork = data->forks[data->num_of_philo - 1];
 		else
 			(*philos)[i].left_fork = data->forks[i - 1];
-		(*philos)[i].print_lock = &data->print_lock;
+		(*philos)[i].print_lock = data->print_lock;
 		pthread_mutex_init(&(*philos)[i].is_dead_lock, NULL);
 		i++;
 	}
