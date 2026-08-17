@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/16 08:48:18 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:46:44 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,16 @@ static int	is_dead(t_philo *philo)
 	return (dead);
 }
 
-void	philo_routine(t_philo *philo)
+void	*philo_routine(void *arg)
 {
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
 	while (!is_dead(philo))
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
 	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/16 08:49:26 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:50:28 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	init_data(t_data *data, int ac, char **av)
  */
 static int	init_mutexes(t_data *data)
 {
-	int	i;
+	size_t	i;
 
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_of_philo);
 	if (!data->forks)
@@ -68,7 +68,7 @@ static int	init_mutexes(t_data *data)
  */
 static int	init_philos(t_philo **philos, const t_data *data)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	*philos = malloc(sizeof(t_philo) * data->num_of_philo);
@@ -104,7 +104,7 @@ int	init_program(t_data *data, t_philo **philos, int ac, char **av)
 	error_code = 0;
 	if (init_data(data, ac, av))
 		return (1);
-	if (error_code = init_mutexes(data))
+	if ((error_code = init_mutexes(data)))
 	{
 		if (error_code == 100)
 			printf("Malloc Failed\n");
@@ -112,10 +112,11 @@ int	init_program(t_data *data, t_philo **philos, int ac, char **av)
 			cleanup(data, philos, error_code, 0);
 		return (1);
 	}
-	if (error_code = init_philos(philos, data))
+	if ((error_code = init_philos(philos, data)))
 	{
 		printf("Malloc Failed\n");
 		cleanup(data, philos, data->num_of_philo, 0);
 		return (1);
 	}
+	return (0);
 }
