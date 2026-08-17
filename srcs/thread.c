@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:42:48 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:20:03 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:32:04 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	start_threads(t_data *data, t_philo **philos)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		if (pthread_create(&(*philos)[i].thread, NULL, philo_routine, NULL) != 0)
+		if (pthread_create(&(*philos)[i].thread, NULL, philo_routine, &(*philos)[i]) != 0)
 			return (printf("Thread creation failed for philo.\n"), 1);
 		i++;
 	}
