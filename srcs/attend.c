@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:46:33 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 12:48:36 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static int	eaten_check(t_philo **philos)
 	size_t	ate_finish;
 	t_philo	*philo;
 
-	if ((*philos)[0].num_of_eat < 1)
+	if ((*philos)[0].data->num_of_eat < 1)
 		return (0);
 	i = 0;
 	ate_finish = 0;
-	num_of_philo = (*philos)[0].num_of_philo;
+	num_of_philo = (*philos)[0].data->num_of_philo;
 	while (i < num_of_philo)
 	{
 		philo = &(*philos)[i];
 		pthread_mutex_lock(&philo->eaten_lock);
-		if (philo->times_eaten == philo->num_of_eat)
+		if (philo->times_eaten == philo->data->num_of_eat)
 			ate_finish += 1;
 		pthread_mutex_unlock(&philo->eaten_lock);
 		i++;
@@ -57,11 +57,11 @@ static int	dead_check(t_philo **philos)
 
 	i = 0;
 	is_dead = 0;
-	num_of_philo = (*philos)[0].num_of_philo;
+	num_of_philo = (*philos)[0].data->num_of_philo;
 	while (i < num_of_philo)
 	{
 		philo = &(*philos)[i];
-		if ((current_time_in_ms() - philo->last_eaten > philo->ttd))
+		if ((current_time_in_ms() - philo->last_eaten > philo->data->ttd))
 		{
 			pthread_mutex_lock(&philo->is_dead_lock);
 			philo->dead = 1;
@@ -82,7 +82,7 @@ static void	stop_routine(t_philo **philos)
 	t_philo	*philo;
 
 	i = 0;
-	num_of_philo = (*philos)[0].num_of_philo;
+	num_of_philo = (*philos)[0].data->num_of_philo;
 	while (i < num_of_philo)
 	{
 		philo = &(*philos)[i];
