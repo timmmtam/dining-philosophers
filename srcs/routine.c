@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:01:44 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:46:44 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ void	*philo_routine(void *arg)
 		philo_sleep(philo);
 		philo_think(philo);
 	}
+	return (NULL);
 }
