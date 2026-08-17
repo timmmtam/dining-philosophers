@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:27:47 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:43:15 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ typedef struct s_data
 typedef struct s_philo
 {
 	pthread_t		thread;
-	int				position;
+	size_t			position;
 	size_t			num_of_philo;
 	size_t			ttd;
 	size_t			tte;
 	size_t			tts;
 	size_t			num_of_eat;
-	int				dead;
-	int				eating;
-	int				last_eaten;
-	int				times_eaten;
+	size_t			dead;
+	size_t			eating;
+	size_t			last_eaten;
+	size_t			times_eaten;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	print_lock;
