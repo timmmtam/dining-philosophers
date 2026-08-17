@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/16 08:49:26 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:40:25 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,5 @@ int	init_program(t_data *data, t_philo **philos, int ac, char **av)
 		cleanup(data, philos, data->num_of_philo, 0);
 		return (1);
 	}
+	return (0);
 }
