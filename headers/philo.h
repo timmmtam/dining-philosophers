@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/16 08:40:53 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 09:46:41 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			start_threads(t_data *data, t_philo **philos);
 void		print_log(t_philo *philo, char *message);
 
 // routine.c
-void		philo_routine(t_philo *philo);
+void		*philo_routine(void *arg);
 
 //attend.c
 void		attend(t_philo **philos);
