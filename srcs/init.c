@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:40:25 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:49:31 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	init_data(t_data *data, int ac, char **av)
  */
 static int	init_mutexes(t_data *data)
 {
-	int	i;
+	size_t	i;
 
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_of_philo);
 	if (!data->forks)
@@ -68,7 +68,7 @@ static int	init_mutexes(t_data *data)
  */
 static int	init_philos(t_philo **philos, const t_data *data)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	*philos = malloc(sizeof(t_philo) * data->num_of_philo);
