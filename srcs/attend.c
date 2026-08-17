@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:28:18 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:29:09 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	eaten_check(t_philo **philos)
 	if ((*philos)[0].num_of_eat < 1)
 		return (0);
 	i = 0;
+	ate_finish = 0;
 	num_of_philo = (*philos)[0].num_of_philo;
 	while (i < num_of_philo)
 	{
@@ -98,6 +99,7 @@ void	*attend(void *arg)
 	int		end;
 
 	philos = (t_philo**)arg;
+	end = 0;
 	while (!end)
 	{
 		if (dead_check(philos) || eaten_check(philos))
