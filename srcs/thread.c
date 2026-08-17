@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:42:48 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:57:15 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:58:44 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int	start_threads(t_data *data, t_philo **philos)
 {
 	pthread_t	waitress;
-	int			i;
+	size_t			i;
 
 	if (pthread_create(&waitress, NULL, attend, philos))
 		return (printf("Thread creation failed for waitress.\n"), 1);
