@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:43:15 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 12:40:27 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 /* ************************************************************************** */
 
 /*
- * Struct to store input data and mutexes.
+ * Struct to store shared data (input & mutexes).
  */
 typedef struct s_data
 {
@@ -49,20 +49,15 @@ typedef struct s_data
  */
 typedef struct s_philo
 {
+	t_data			*data;
 	pthread_t		thread;
 	size_t			position;
-	size_t			num_of_philo;
-	size_t			ttd;
-	size_t			tte;
-	size_t			tts;
-	size_t			num_of_eat;
 	size_t			dead;
 	size_t			eating;
 	size_t			last_eaten;
 	size_t			times_eaten;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
-	pthread_mutex_t	print_lock;
 	pthread_mutex_t	is_dead_lock;
 	pthread_mutex_t	eaten_lock;
 }					t_philo;
