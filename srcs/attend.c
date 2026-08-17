@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/16 09:40:03 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:28:18 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ static void	stop_routine(t_philo **philos)
 	}
 }
 
-void	attend(t_philo **philos)
+void	*attend(void *arg)
 {
-	int	end;
+	t_philo	**philos;
+	int		end;
 
+	philos = (t_philo**)arg;
 	while (!end)
 	{
 		if (dead_check(philos) || eaten_check(philos))

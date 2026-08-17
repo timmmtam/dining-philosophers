@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 09:46:41 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/17 10:27:47 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ void		print_log(t_philo *philo, char *message);
 void		*philo_routine(void *arg);
 
 //attend.c
-void		attend(t_philo **philos);
+void		*attend(void *arg);
 
 #endif
