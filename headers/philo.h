@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/22 15:04:19 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 17:32:01 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_philo
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	eaten_lock;
+	pthread_mutex_t	last_eat_lock;
 }					t_philo;
 
 /* ************************************************************************** */

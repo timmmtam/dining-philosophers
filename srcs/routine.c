@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/22 15:39:47 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 17:36:21 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static void	philo_eat(t_philo *philo)
 	philo->eating = 1;
 	print_log(philo, "is eating");
 	msleep(philo->data->tte);
+	pthread_mutex_lock(&philo->last_eat_lock);
 	philo->last_eaten = current_time_in_ms();
+	pthread_mutex_unlock(&philo->last_eat_lock);
 	philo->eating = 0;
 	pthread_mutex_lock(&philo->eaten_lock);
 	philo->times_eaten += 1;

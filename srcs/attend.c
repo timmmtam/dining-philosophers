@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/22 17:23:34 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 17:38:58 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,16 @@ static int	dead_check(t_philo *philo)
 	int	dead;
 
 	dead = 0;
+	pthread_mutex_lock(&philo->last_eat_lock);
 	if ((current_time_in_ms() - philo->last_eaten > philo->data->ttd))
 	{
+		pthread_mutex_unlock(&philo->last_eat_lock);
 		print_log(philo, "died");
 		end_sim(philo);
 		dead = 1;
 	}
+	else
+		pthread_mutex_unlock(&philo->last_eat_lock);
 	return (dead);
 }
 
