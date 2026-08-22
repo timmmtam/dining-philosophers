@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/22 17:32:30 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 17:49:57 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	init_mutexes(t_data *data)
 {
 	size_t	i;
 
-	pthread_mutex_init(&data->print_lock, NULL);
 	pthread_mutex_init(&data->end_sim_lock, NULL);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_of_philo);
 	if (!data->forks)
