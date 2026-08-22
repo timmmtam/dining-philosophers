@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 12:40:27 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 15:04:19 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ typedef struct s_data
 	size_t			tte;
 	size_t			tts;
 	size_t			num_of_eat;
+	size_t			end_sim;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
-	pthread_mutex_t	is_dead_lock;
+	pthread_mutex_t	end_sim_lock;
 }					t_data;
 
 /*
@@ -58,7 +59,6 @@ typedef struct s_philo
 	size_t			times_eaten;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
-	pthread_mutex_t	is_dead_lock;
 	pthread_mutex_t	eaten_lock;
 }					t_philo;
 
