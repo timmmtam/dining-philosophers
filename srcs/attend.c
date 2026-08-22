@@ -6,15 +6,21 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:46:33 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 15:48:49 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	end_sim(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->end_sim_lock);
+	philo->data->end_sim = 1;
+	pthread_mutex_unlock(&philo->data->end_sim_lock);
+}
+
 /*
 	* Checks if meals eaten satisfies the number of times to eat.
-	* Relies on dead_check to end the routine loop by setting dead = 1.
 	* Returns 0 if num_of_eat is not specified of philos are not satisfied.
 	* Returns 1 if all philos are satisfied.
  */
@@ -25,27 +31,30 @@ static int	eaten_check(t_philo **philos)
 	size_t	ate_finish;
 	t_philo	*philo;
 
-	if ((*philos)[0].num_of_eat < 1)
+	if ((*philos)[0].data->num_of_eat < 1)
 		return (0);
 	i = 0;
 	ate_finish = 0;
-	num_of_philo = (*philos)[0].num_of_philo;
+	num_of_philo = (*philos)[0].data->num_of_philo;
 	while (i < num_of_philo)
 	{
 		philo = &(*philos)[i];
 		pthread_mutex_lock(&philo->eaten_lock);
-		if (philo->times_eaten == philo->num_of_eat)
+		if (philo->times_eaten == philo->data->num_of_eat)
 			ate_finish += 1;
 		pthread_mutex_unlock(&philo->eaten_lock);
 		i++;
 	}
 	if (ate_finish == num_of_philo)
+	{
+		end_sim(&(*philos)[0]);
 		return (1);
+	}
 	return(0);
 }
 
 /*
-	* Checks if each philo is starved or satisfied.
+	* Role: To check if each philo is starved.
 	* Sets dead = 1 if yes. To end the routine and stop program.
 */
 static int	dead_check(t_philo **philos)
@@ -57,15 +66,13 @@ static int	dead_check(t_philo **philos)
 
 	i = 0;
 	is_dead = 0;
-	num_of_philo = (*philos)[0].num_of_philo;
+	num_of_philo = (*philos)[0].data->num_of_philo;
 	while (i < num_of_philo)
 	{
 		philo = &(*philos)[i];
-		if ((current_time_in_ms() - philo->last_eaten > philo->ttd))
+		if ((current_time_in_ms() - philo->last_eaten > philo->data->ttd))
 		{
-			pthread_mutex_lock(&philo->is_dead_lock);
-			philo->dead = 1;
-			pthread_mutex_unlock(&philo->is_dead_lock);
+			end_sim(philo);
 			print_log(philo, "died");
 			is_dead = 1;
 			break;
@@ -75,24 +82,10 @@ static int	dead_check(t_philo **philos)
 	return (is_dead);
 }
 
-static void	stop_routine(t_philo **philos)
-{
-	size_t	i;
-	size_t	num_of_philo;
-	t_philo	*philo;
-
-	i = 0;
-	num_of_philo = (*philos)[0].num_of_philo;
-	while (i < num_of_philo)
-	{
-		philo = &(*philos)[i];
-		pthread_mutex_lock(&philo->is_dead_lock);
-		philo->dead = 1;
-		pthread_mutex_unlock(&philo->is_dead_lock);
-		i++;
-	}
-}
-
+/*
+ * The routine passed into the waiter thread with the array of philos as arg.
+ * Role: To call dead_check and eaten_check until one of then is satisfied.
+ */
 void	*attend(void *arg)
 {
 	t_philo	**philos;
