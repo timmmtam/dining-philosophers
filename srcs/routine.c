@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 11:22:33 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/29 16:30:10 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ static void	philo_eat(t_philo *philo)
 	}
 	philo->eating = 1;
 	print_log(philo, "is eating");
-	msleep(philo->tte);
+	msleep(philo->data->tte);
+	pthread_mutex_lock(&philo->last_eat_lock);
 	philo->last_eaten = current_time_in_ms();
+	pthread_mutex_unlock(&philo->last_eat_lock);
 	philo->eating = 0;
 	pthread_mutex_lock(&philo->eaten_lock);
 	philo->times_eaten += 1;
@@ -48,27 +50,37 @@ static void	philo_eat(t_philo *philo)
 static void	philo_sleep(t_philo *philo)
 {
 	print_log(philo, "is sleeping");
-	msleep(philo->tts);
+	msleep(philo->data->tts);
 }
 
-static int	is_dead(t_philo *philo)
+/*
+ * Checks if the simulation has ended or if it has finished eating.
+ */
+static int	is_end(t_philo *philo)
 {
-	int	dead;
+	int	end;
 
-	dead = 0;
-	pthread_mutex_lock(&philo->is_dead_lock);
-	if (philo->dead == 1)
-		dead = 1;
-	pthread_mutex_unlock(&philo->is_dead_lock);
-	return (dead);
+	end = 0;
+	pthread_mutex_lock(&philo->data->end_sim_lock);
+	if (philo->data->end_sim == 1)
+		end = 1;
+	pthread_mutex_unlock(&philo->data->end_sim_lock);
+	pthread_mutex_lock(&philo->eaten_lock);
+	if (philo->times_eaten >= philo->data->num_of_eat)
+		end = 1;
+	pthread_mutex_unlock(&philo->eaten_lock);
+	return (end);
 }
 
+/*
+ * The routine passed into each thread along with the philo struct as argument
+*/
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!is_dead(philo))
+	while (!is_end(philo))
 	{
 		philo_eat(philo);
 		philo_sleep(philo);

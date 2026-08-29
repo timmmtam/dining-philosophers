@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/17 10:50:28 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 17:49:57 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	init_data(t_data *data, int ac, char **av)
 		if ((data->num_of_eat = ft_atol(av[5])) <= 0)
 			return (printf("Error. Eat count is not greater than 0.\n"), 1);
 	}
+	data->end_sim = 0;
 	return (0);
 }
 
@@ -44,6 +45,7 @@ static int	init_mutexes(t_data *data)
 {
 	size_t	i;
 
+	pthread_mutex_init(&data->end_sim_lock, NULL);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_of_philo);
 	if (!data->forks)
 		return (100);
@@ -56,8 +58,6 @@ static int	init_mutexes(t_data *data)
 		}
 		i++;
 	}
-	pthread_mutex_init(&data->print_lock, NULL);
-	pthread_mutex_init(&data->is_dead_lock, NULL);
 	return(0);
 }
 
@@ -78,17 +78,15 @@ static int	init_philos(t_philo **philos, const t_data *data)
 	{
 		(*philos)[i] = (t_philo){0};
 		(*philos)[i].position = i;
-		(*philos)[i].num_of_philo = data->num_of_philo;
-		(*philos)[i].ttd = data->ttd;
-		(*philos)[i].tte = data->tte;
-		(*philos)[i].tts = data->tts;
+		(*philos)[i].data = (t_data *)data;
+		(*philos)[i].last_eaten = current_time_in_ms();
 		(*philos)[i].right_fork = data->forks[i];
 		if (i == 0)
 			(*philos)[i].left_fork = data->forks[data->num_of_philo - 1];
 		else
 			(*philos)[i].left_fork = data->forks[i - 1];
-		(*philos)[i].print_lock = data->print_lock;
-		pthread_mutex_init(&(*philos)[i].is_dead_lock, NULL);
+		pthread_mutex_init(&(*philos)[i].eaten_lock, NULL);
+		pthread_mutex_init(&(*philos)[i].last_eat_lock, NULL);
 		i++;
 	}
 	return(0);

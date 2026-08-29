@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:31 by timtan            #+#    #+#             */
-/*   Updated: 2026/05/16 16:41:35 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/22 17:50:02 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	cleanup(t_data *data, t_philo **philos, int f_created, int p_created)
 
 	if (f_created)
 	{
+		pthread_mutex_destroy(&data->end_sim_lock);
 		i = 0;
 		while (i < f_created)
 		{
@@ -33,6 +34,13 @@ void	cleanup(t_data *data, t_philo **philos, int f_created, int p_created)
 	}
 	if (p_created)
 	{
+		i = 0;
+		while (i < p_created)
+		{
+			pthread_mutex_destroy(&(*philos)[i].eaten_lock);
+			pthread_mutex_destroy(&(*philos)[i].last_eat_lock);
+			i++;
+		}
 		free(*philos);
 	}
 }
