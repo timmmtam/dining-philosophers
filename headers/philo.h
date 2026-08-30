@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 14:01:40 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 14:26:26 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdint.h>
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include <limits.h>
 
 
 /* ************************************************************************** */
@@ -68,7 +68,7 @@ typedef struct s_philo
 /* ************************************************************************** */
 
 // ft_atol.c
-long		ft_atol(const char *nptr);
+size_t		ft_atoz(const char *nptr);
 
 // time.c
 void		msleep(int ms);
