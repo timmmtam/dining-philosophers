@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:37:50 by timtan            #+#    #+#             */
-/*   Updated: 2026/04/18 16:38:12 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 14:07:24 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ long	ft_atol(const char *nptr)
 			sign *= -1;
 		i++;
 	}
-	if (nptr[i] < '0' && nptr[i] > '9')
+	if (nptr[i] < '0' || nptr[i] > '9')
 		return (0);
 	while (nptr[i] != '\0' && nptr[i] >= '0' && nptr[i] <= '9')
 	{
+		if (result > (LONG_MAX - (nptr[i] - '0')) / 10)
+			return (0);
 		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}
