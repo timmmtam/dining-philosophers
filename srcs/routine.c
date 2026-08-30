@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/22 17:36:21 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 17:03:39 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,13 @@ static int	is_end(t_philo *philo)
 	if (philo->data->end_sim == 1)
 		end = 1;
 	pthread_mutex_unlock(&philo->data->end_sim_lock);
-	pthread_mutex_lock(&philo->eaten_lock);
-	if (philo->times_eaten >= philo->data->num_of_eat)
-		end = 1;
-	pthread_mutex_unlock(&philo->eaten_lock);
+	if (philo->data->num_of_eat > 0)
+	{
+		pthread_mutex_lock(&philo->eaten_lock);
+		if (philo->times_eaten >= philo->data->num_of_eat)
+			end = 1;
+		pthread_mutex_unlock(&philo->eaten_lock);
+	}
 	return (end);
 }
 
