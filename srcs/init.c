@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 14:34:21 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 18:18:16 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	init_data(t_data *data, int ac, char **av)
 			return (printf("Error. Eat count is not greater than 0.\n"), 1);
 	}
 	data->end_sim = 0;
+	data->start_time = current_time_in_ms();
 	return (0);
 }
 
@@ -80,11 +81,11 @@ static int	init_philos(t_philo **philos, const t_data *data)
 		(*philos)[i].position = i;
 		(*philos)[i].data = (t_data *)data;
 		(*philos)[i].last_eaten = current_time_in_ms();
-		(*philos)[i].right_fork = data->forks[i];
+		(*philos)[i].right_fork = &data->forks[i];
 		if (i == 0)
-			(*philos)[i].left_fork = data->forks[data->num_of_philo - 1];
+			(*philos)[i].left_fork = &data->forks[data->num_of_philo - 1];
 		else
-			(*philos)[i].left_fork = data->forks[i - 1];
+			(*philos)[i].left_fork = &data->forks[i - 1];
 		pthread_mutex_init(&(*philos)[i].eaten_lock, NULL);
 		pthread_mutex_init(&(*philos)[i].last_eat_lock, NULL);
 		i++;

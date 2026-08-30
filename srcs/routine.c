@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/29 16:30:10 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 18:42:09 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,28 @@ static void	philo_eat(t_philo *philo)
 {
 	if (philo->position % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->left_fork);
+		pthread_mutex_lock(philo->left_fork);
 		print_log(philo, "has taken a fork");
-		pthread_mutex_lock(&philo->right_fork);
+		pthread_mutex_lock(philo->right_fork);
 		print_log(philo, "has taken a fork");
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->right_fork);
+		pthread_mutex_lock(philo->right_fork);
 		print_log(philo, "has taken a fork");
-		pthread_mutex_lock(&philo->left_fork);
+		pthread_mutex_lock(philo->left_fork);
 		print_log(philo, "has taken a fork");
 	}
-	philo->eating = 1;
-	print_log(philo, "is eating");
-	msleep(philo->data->tte);
 	pthread_mutex_lock(&philo->last_eat_lock);
 	philo->last_eaten = current_time_in_ms();
 	pthread_mutex_unlock(&philo->last_eat_lock);
-	philo->eating = 0;
+	print_log(philo, "is eating");
+	msleep(philo->data->tte);
 	pthread_mutex_lock(&philo->eaten_lock);
 	philo->times_eaten += 1;
 	pthread_mutex_unlock(&philo->eaten_lock);
-	pthread_mutex_unlock(&philo->right_fork);
-	pthread_mutex_unlock(&philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 }
 
 static void	philo_sleep(t_philo *philo)
@@ -65,10 +63,13 @@ static int	is_end(t_philo *philo)
 	if (philo->data->end_sim == 1)
 		end = 1;
 	pthread_mutex_unlock(&philo->data->end_sim_lock);
-	pthread_mutex_lock(&philo->eaten_lock);
-	if (philo->times_eaten >= philo->data->num_of_eat)
-		end = 1;
-	pthread_mutex_unlock(&philo->eaten_lock);
+	if (philo->data->num_of_eat > 0)
+	{
+		pthread_mutex_lock(&philo->eaten_lock);
+		if (philo->times_eaten >= philo->data->num_of_eat)
+			end = 1;
+		pthread_mutex_unlock(&philo->eaten_lock);
+	}
 	return (end);
 }
 

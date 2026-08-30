@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:44:23 by timtan            #+#    #+#             */
-/*   Updated: 2026/04/21 16:07:04 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 17:16:14 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ * Returns the current time in milisecond.
+ * tv_sec = seconds elapsed since Unix Epoch (1 Jan 1970)
+ * tv_usec = microseconds in that second
+ */
 long long	current_time_in_ms(void)
 {
 	struct timeval	tv;

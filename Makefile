@@ -6,7 +6,7 @@
 #    By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/18 15:47:05 by timtan            #+#    #+#              #
-#    Updated: 2026/08/30 14:27:08 by timtan           ###   ########.fr        #
+#    Updated: 2026/08/30 17:57:29 by timtan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ clean:
 	rm -rf $(OBJDIR)
 
 fclean: clean
-	rm $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fcllean re
+.PHONY: all clean fclean re
