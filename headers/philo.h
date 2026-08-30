@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 14:26:26 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 17:52:18 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_data
 	size_t			tts;
 	size_t			num_of_eat;
 	size_t			end_sim;
+	long long		start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	end_sim_lock;
 }					t_data;
