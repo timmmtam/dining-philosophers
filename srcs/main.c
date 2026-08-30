@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:16:57 by timtan            #+#    #+#             */
-/*   Updated: 2026/07/18 13:20:04 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 13:59:09 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int	main(int ac, char **av)
 	t_data	data;
 
 	if (ac < 5 || ac > 6)
-		return (printf("Invalid Parameters.\n"), 1);
+	{
+		printf("Invalid Parameters.\nUsage: ./philo [num_of_philos] [time_to_"
+			"die] [time_to_eat] [time_to_sleep] [num_must_eat(optional)]\n");
+		return (1);
+	}
 	data = (t_data){0};
 	if (init_program(&data, &philos, ac, av))
 		return (1);
