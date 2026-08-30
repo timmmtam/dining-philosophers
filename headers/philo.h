@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 18:17:51 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 18:26:03 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_philo
 	pthread_t		thread;
 	size_t			position;
 	size_t			dead;
-	size_t			eating;
 	size_t			last_eaten;
 	size_t			times_eaten;
 	pthread_mutex_t	*left_fork;
