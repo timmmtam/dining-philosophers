@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/29 16:36:25 by timtan           ###   ########.fr       */
+/*   Updated: 2026/08/30 16:46:39 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*attend(void *arg)
 	t_philo	**philos;
 	int		end;
 	size_t	ate_finish;
-	size_t		i;
+	size_t	i;
 
 	philos = (t_philo**)arg;
 	end = 0;
