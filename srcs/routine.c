@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 18:26:53 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/01 18:20:46 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,31 @@
 static void	philo_think(t_philo *philo)
 {
 	print_log(philo, "is thinking");
+	if (philo->data->tts <= philo->data->tte)
+	{
+		if (philo->data->num_of_philo % 2 == 0)
+			msleep(philo->data->tte - philo->data->tts + 1);
+		else
+			msleep((philo->data->tte * 2) - philo->data->tts + 1);
+	}
 }
 
 static void	philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right_fork);
-	print_log(philo, "has taken a fork");
-	pthread_mutex_lock(philo->left_fork);
-	print_log(philo, "has taken a fork");
+	if (philo->position % 2 == 0)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		print_log(philo, "has taken a fork");
+		pthread_mutex_lock(philo->right_fork);
+		print_log(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_log(philo, "has taken a fork");
+		pthread_mutex_lock(philo->left_fork);
+		print_log(philo, "has taken a fork");
+	}
 	pthread_mutex_lock(&philo->last_eat_lock);
 	philo->last_eaten = current_time_in_ms();
 	pthread_mutex_unlock(&philo->last_eat_lock);
@@ -71,6 +88,14 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->data->num_of_philo == 1)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_log(philo, "has taken a fork");
+		msleep(philo->data->ttd + 5);
+		pthread_mutex_unlock(philo->right_fork);
+		return (NULL);
+	}
 	while (!is_end(philo))
 	{
 		philo_eat(philo);
