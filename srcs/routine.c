@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/01 18:00:08 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/01 18:20:46 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,14 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->data->num_of_philo == 1)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		print_log(philo, "has taken a fork");
+		msleep(philo->data->ttd + 5);
+		pthread_mutex_unlock(philo->right_fork);
+		return (NULL);
+	}
 	while (!is_end(philo))
 	{
 		philo_eat(philo);
