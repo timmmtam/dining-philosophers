@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 18:42:09 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/01 18:00:08 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 static void	philo_think(t_philo *philo)
 {
 	print_log(philo, "is thinking");
+	if (philo->data->tts <= philo->data->tte)
+	{
+		if (philo->data->num_of_philo % 2 == 0)
+			msleep(philo->data->tte - philo->data->tts + 1);
+		else
+			msleep((philo->data->tte * 2) - philo->data->tts + 1);
+	}
 }
 
 static void	philo_eat(t_philo *philo)
