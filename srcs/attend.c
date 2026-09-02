@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 18:42:22 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/02 17:37:03 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	*attend(void *arg)
 
 	philos = (t_philo**)arg;
 	end = 0;
-	ate_finish = 0;
 	while (!end)
 	{
+		ate_finish = 0;
 		i = 0;
 		while (i < (*philos)[0].data->num_of_philo)
 		{
