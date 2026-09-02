@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:16:57 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 13:59:09 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/02 18:15:30 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	main(int ac, char **av)
 	data = (t_data){0};
 	if (init_program(&data, &philos, ac, av))
 		return (1);
-	if (start_threads(&data, &philos))
-		//add cleanup or error message here.
+	start_threads(&data, &philos);
 	cleanup(&data, &philos, data.num_of_philo, 1);
 	return (0);
 }
