@@ -6,16 +6,17 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:31 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/22 17:50:02 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/02 18:15:58 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /*
- * Destroy the mutexes
- * Free the memory of philos
- * Free the memory of forks
+ * f_created = flag if forks are created (also the number of philo/forks)
+ * p_created = flag if philo array is created
+ *
+ * Destroy mutex for forks and philos and free their array.
  */
 void	cleanup(t_data *data, t_philo **philos, int f_created, int p_created)
 {
