@@ -6,11 +6,18 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:42:48 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/02 18:06:02 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 07:55:07 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	start_sim(t_data *data)
+{
+	pthread_mutex_lock(&data->start_lock);
+	data->start_sim = 1;
+	pthread_mutex_unlock(&data->start_lock);
+}
 
 /*
 	* Starts each philo thread, passing the philo routine as a function.
@@ -31,6 +38,7 @@ int	start_threads(t_data *data, t_philo **philos)
 			return (printf("Thread creation failed for philo.\n"), 1);
 		i++;
 	}
+	start_sim(data);
 	i = 0;
 	if (pthread_join(waitress, NULL) != 0)
 		return (printf("Thread joining failed for waitress.\n"), 2);
