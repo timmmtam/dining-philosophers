@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:42:48 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 07:55:07 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 08:05:31 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	start_sim(t_data *data)
 {
 	pthread_mutex_lock(&data->start_lock);
+	data->start_time = current_time_in_ms();
 	data->start_sim = 1;
 	pthread_mutex_unlock(&data->start_lock);
 }

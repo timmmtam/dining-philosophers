@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 07:37:56 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 08:05:45 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int	init_data(t_data *data, int ac, char **av)
 			return (printf("Error. Eat count is not greater than 0.\n"), 1);
 	}
 	data->end_sim = 0;
-	data->start_time = current_time_in_ms();
 	return (0);
 }
 
