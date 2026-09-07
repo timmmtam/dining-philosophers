@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:31 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 08:41:55 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 10:21:21 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,31 @@ int	thread_cleanup(t_philo **philos, int err)
 }
 
 /*
- * f_created = flag if forks are created (also the number of philo/forks)
- * p_created = flag if philo array is created
+ * f_num = number of forks created
+ * p_num = number of philos created
  *
  * Destroy mutex for forks and philos and free their array.
  */
-void	cleanup(t_data *data, t_philo **philos, int f_created, int p_created)
+void	cleanup(t_data *data, t_philo **philos, int f_num, int p_num)
 {
 	int	i;
 
-	if (f_created)
+	if (f_num)
 	{
 		pthread_mutex_destroy(&data->end_sim_lock);
 		pthread_mutex_destroy(&data->start_lock);
 		i = 0;
-		while (i < f_created)
+		while (i < f_num)
 		{
 			pthread_mutex_destroy(&data->forks[i]);
 			i++;
 		}
 		free(data->forks);
 	}
-	if (p_created)
+	if (p_num)
 	{
 		i = 0;
-		while (i < p_created)
+		while (i < p_num)
 		{
 			pthread_mutex_destroy(&(*philos)[i].eaten_lock);
 			pthread_mutex_destroy(&(*philos)[i].last_eat_lock);
