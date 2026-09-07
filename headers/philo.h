@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 08:31:17 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 10:20:06 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
-
 
 /* ************************************************************************** */
 /*                               Structs                                      */
@@ -80,7 +79,7 @@ long long	current_time_in_ms(void);
 int			init_program(t_data *data, t_philo **philos, int ac, char **av);
 
 // cleanup.c
-void		cleanup(t_data *data, t_philo **philos, int f_created, int p_created);
+void		cleanup(t_data *data, t_philo **philos, int f_num, int p_num);
 int			thread_cleanup(t_philo **philos, int err);
 
 // thread.c
