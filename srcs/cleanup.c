@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:31 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 08:32:58 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 08:41:55 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ int	thread_cleanup(t_philo **philos, int err)
 	else
 	{
 		printf("Error: Thread creation failed for philo.\n");
+		pthread_mutex_lock(&(*philos)[0].data->end_sim_lock);
+		(*philos)[0].data->end_sim = 1;
+		pthread_mutex_unlock(&(*philos)[0].data->end_sim_lock);
+		pthread_mutex_lock(&(*philos)[0].data->start_lock);
+		(*philos)[0].data->start_sim = 1;
+		pthread_mutex_unlock(&(*philos)[0].data->start_lock);
 		while (i < err)
 		{
 			pthread_join((*philos)[i].thread, NULL);
