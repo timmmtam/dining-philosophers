@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 07:50:58 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 10:31:05 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ static void	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->eaten_lock);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
-}
-
-static void	philo_sleep(t_philo *philo)
-{
-	print_log(philo, "is sleeping");
-	msleep(philo->data->tts);
 }
 
 /*
@@ -105,7 +99,7 @@ void	*philo_routine(void *arg)
 		if (philo->data->start_sim == 1)
 		{
 			pthread_mutex_unlock(&philo->data->start_lock);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&philo->data->start_lock);
 	}
@@ -114,7 +108,8 @@ void	*philo_routine(void *arg)
 	while (!is_end(philo))
 	{
 		philo_eat(philo);
-		philo_sleep(philo);
+		print_log(philo, "is sleeping");
+		msleep(philo->data->tts);
 		philo_think(philo);
 	}
 	return (NULL);
