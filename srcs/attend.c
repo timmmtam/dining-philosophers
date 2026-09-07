@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/02 17:37:03 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 10:36:36 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ate_check(t_philo *philo)
 	if (philo->times_eaten == philo->data->num_of_eat)
 		ate = 1;
 	pthread_mutex_unlock(&philo->eaten_lock);
-	return(ate);
+	return (ate);
 }
 
 /*
@@ -73,7 +73,7 @@ void	*attend(void *arg)
 	size_t	ate_finish;
 	size_t	i;
 
-	philos = (t_philo**)arg;
+	philos = (t_philo **)arg;
 	end = 0;
 	while (!end)
 	{
@@ -81,8 +81,9 @@ void	*attend(void *arg)
 		i = 0;
 		while (i < (*philos)[0].data->num_of_philo)
 		{
-			if ((end = dead_check(&(*philos)[i])))
-				break;
+			end = dead_check(&(*philos)[i]);
+			if (end)
+				break ;
 			if ((*philos)[0].data->num_of_eat > 0)
 				ate_finish += ate_check(&(*philos)[i]);
 			i++;
