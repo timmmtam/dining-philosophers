@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 16:42:48 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 08:25:39 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 10:28:13 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ static void	start_sim(t_data *data)
 int	start_threads(t_data *data, t_philo **philos)
 {
 	pthread_t	waitress;
-	size_t			i;
+	size_t		i;
 
 	if (pthread_create(&waitress, NULL, attend, philos))
 		return (thread_cleanup(philos, -1));
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		if (pthread_create(&(*philos)[i].thread, NULL, philo_routine, &(*philos)[i]) != 0)
+		if (pthread_create(&(*philos)[i].thread, NULL, philo_routine,
+			&(*philos)[i]) != 0)
 			return (thread_cleanup(philos, i));
 		i++;
 	}
