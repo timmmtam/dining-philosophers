@@ -6,11 +6,34 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:31 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 07:43:18 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 08:32:58 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+ * Joins the created threads if a thread creation fails.
+ * err variable is used to determine whether waitress or philo failed creation.
+ */
+int	thread_cleanup(t_philo **philos, int err)
+{
+	int	i;
+
+	i = 0;
+	if (err == -1)
+		printf("Error: Thread creation failed for waitress.\n");
+	else
+	{
+		printf("Error: Thread creation failed for philo.\n");
+		while (i < err)
+		{
+			pthread_join((*philos)[i].thread, NULL);
+			i++;
+		}
+	}
+	return (1);
+}
 
 /*
  * f_created = flag if forks are created (also the number of philo/forks)

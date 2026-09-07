@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 07:44:54 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/07 08:31:17 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int			init_program(t_data *data, t_philo **philos, int ac, char **av);
 
 // cleanup.c
 void		cleanup(t_data *data, t_philo **philos, int f_created, int p_created);
+int			thread_cleanup(t_philo **philos, int err);
 
 // thread.c
 int			start_threads(t_data *data, t_philo **philos);
