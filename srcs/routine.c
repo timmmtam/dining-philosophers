@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 10:31:05 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/08 09:52:21 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	*philo_routine(void *arg)
 		}
 		pthread_mutex_unlock(&philo->data->start_lock);
 	}
+	if (philo->position % 2 == 0)
+		msleep(philo->data->tte / 2);
 	if (philo->data->num_of_philo == 1)
 		return (single_philo(philo), NULL);
 	while (!is_end(philo))
