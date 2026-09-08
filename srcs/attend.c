@@ -6,16 +6,23 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 12:37:43 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 10:36:36 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/08 10:49:16 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	end_sim(t_philo *philo)
+static int	end_sim(t_philo *philo, int print_dead)
 {
+	long long	elapsed_time;
+
 	pthread_mutex_lock(&philo->data->end_sim_lock);
 	philo->data->end_sim = 1;
+	if (print_dead)
+	{
+		elapsed_time = current_time_in_ms() - philo->data->start_time;
+		printf("%lld %zu died\n", elapsed_time, philo->position + 1);
+	}
 	pthread_mutex_unlock(&philo->data->end_sim_lock);
 	return (1);
 }
@@ -52,8 +59,7 @@ static int	dead_check(t_philo *philo)
 	if ((current_time_in_ms() - philo->last_eaten > philo->data->ttd))
 	{
 		pthread_mutex_unlock(&philo->last_eat_lock);
-		print_log(philo, "died");
-		end_sim(philo);
+		end_sim(philo, 1);
 		dead = 1;
 	}
 	else
@@ -89,7 +95,7 @@ void	*attend(void *arg)
 			i++;
 		}
 		if (ate_finish == (*philos)[0].data->num_of_philo)
-			end = end_sim(&(*philos)[0]);
+			end = end_sim(&(*philos)[0], 0);
 	}
 	return (NULL);
 }
