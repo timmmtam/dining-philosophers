@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:44:23 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 17:16:14 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/08 10:14:39 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ long long	current_time_in_ms(void)
 		return (((long long)tv.tv_sec * 1000) + ((long long)tv.tv_usec / 1000));
 }
 
-void	msleep(int ms)
+void	msleep(long long ms)
 {
 	long long	start_time;
 

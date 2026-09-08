@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:22:27 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 10:20:06 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/08 10:14:49 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_philo
 size_t		ft_atoz(const char *nptr);
 
 // time.c
-void		msleep(int ms);
+void		msleep(long long ms);
 long long	current_time_in_ms(void);
 
 // init.c
