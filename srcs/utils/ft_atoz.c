@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 16:37:50 by timtan            #+#    #+#             */
-/*   Updated: 2026/08/30 14:33:59 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/08 09:39:26 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ size_t	ft_atoz(const char *nptr)
 		i++;
 	}
 	if (nptr[i] != '\0')
+		return (0);
+	if (result > 2147483647)
 		return (0);
 	return (result);
 }
