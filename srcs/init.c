@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 16:55:22 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 10:43:17 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/08 09:43:18 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ static int	init_data(t_data *data, int ac, char **av)
 {
 	data->num_of_philo = ft_atoz(av[1]);
 	if (data->num_of_philo <= 0)
-		return (printf("Error. No. of philos is not greater than 0.\n"), 1);
+		return (printf("Error: Invalid number of philosophers.\n"), 1);
 	data->ttd = ft_atoz(av[2]);
 	if (data->ttd <= 0)
-		return (printf("Error. Time to die is not greater than 0.\n"), 1);
+		return (printf("Error: Invalid time to die.\n"), 1);
 	data->tte = ft_atoz(av[3]);
 	if (data->tte <= 0)
-		return (printf("Error. Time to eat is not greater than 0.\n"), 1);
+		return (printf("Error: Invalid time to eat.\n"), 1);
 	data->tts = ft_atoz(av[4]);
 	if (data->tts <= 0)
-		return (printf("Error. Time to sleep is not greater 0.\n"), 1);
+		return (printf("Error: Invalid time to sleep.\n"), 1);
 	if (ac == 6)
 	{
 		data->num_of_eat = ft_atoz(av[5]);
 		if (data->num_of_eat <= 0)
-			return (printf("Error. Eat count is not greater than 0.\n"), 1);
+			return (printf("Error: Invalid eat count.\n"), 1);
 	}
 	data->end_sim = 0;
 	return (0);
