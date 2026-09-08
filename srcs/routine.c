@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/07 10:31:05 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/08 10:13:14 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 static void	philo_think(t_philo *philo)
 {
+	size_t	time_to_think;
+	size_t	time_to_live;
+
 	print_log(philo, "is thinking");
 	if (philo->data->tts <= philo->data->tte)
 	{
 		if (philo->data->num_of_philo % 2 == 0)
-			msleep(philo->data->tte - philo->data->tts + 1);
+			time_to_think = philo->data->tte - philo->data->tts + 1;
 		else
-			msleep((philo->data->tte * 2) - philo->data->tts + 1);
+			time_to_think = (philo->data->tte * 2) - philo->data->tts + 1;
+		time_to_live = philo->data->ttd + philo->last_eaten - current_time_in_ms();
+		if (time_to_think >= time_to_live)
+			time_to_think = time_to_live - 1;
+		msleep(time_to_think);
 	}
 }
 
@@ -103,6 +110,8 @@ void	*philo_routine(void *arg)
 		}
 		pthread_mutex_unlock(&philo->data->start_lock);
 	}
+	if (philo->position % 2 == 0)
+		msleep(philo->data->tte / 2);
 	if (philo->data->num_of_philo == 1)
 		return (single_philo(philo), NULL);
 	while (!is_end(philo))
