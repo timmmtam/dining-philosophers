@@ -6,7 +6,7 @@
 /*   By: timtan <timtan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 16:54:03 by timtan            #+#    #+#             */
-/*   Updated: 2026/09/08 10:13:14 by timtan           ###   ########.fr       */
+/*   Updated: 2026/09/23 18:09:08 by timtan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	philo_think(t_philo *philo)
 {
 	size_t	time_to_think;
 	size_t	time_to_live;
+	size_t	time_will_die;
 
 	print_log(philo, "is thinking");
 	if (philo->data->tts <= philo->data->tte)
@@ -24,7 +25,8 @@ static void	philo_think(t_philo *philo)
 			time_to_think = philo->data->tte - philo->data->tts + 1;
 		else
 			time_to_think = (philo->data->tte * 2) - philo->data->tts + 1;
-		time_to_live = philo->data->ttd + philo->last_eaten - current_time_in_ms();
+		time_will_die = philo->data->ttd + philo->last_eaten;
+		time_to_live = time_will_die - current_time_in_ms();
 		if (time_to_think >= time_to_live)
 			time_to_think = time_to_live - 1;
 		msleep(time_to_think);
